@@ -1,0 +1,9 @@
+{
+  "autodeskProduct": ["Fusion360"],
+  "type": "addin",
+  "id": "com.codex.drawerbox",
+  "author": "Codex",
+  "description": "Drawer box generator with dovetail joints",
+  "version": "0.1.0",
+  "entry": "DovetailDrawer"
+}
