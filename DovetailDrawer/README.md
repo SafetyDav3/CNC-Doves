@@ -6,6 +6,7 @@ This Fusion 360 add-in creates a parametric drawer box with dovetail joints.
 1. Copy the `DovetailDrawer` folder to your Fusion 360 Add-Ins directory. The
    folder must contain both `DovetailDrawer.py` and `DovetailDrawer.manifest`
    with matching names.
+   
 2. Launch Fusion 360 and enable the add-in from the `Scripts and Add-Ins` dialog.
 
 ## Usage

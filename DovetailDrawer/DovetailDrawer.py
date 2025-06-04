@@ -7,6 +7,9 @@ import adsk.fusion
 import traceback
 
 # Global set of event handlers kept referenced during the command
+import math
+
+# Global set of event handlers to keep them referenced for the duration of the command
 handlers = []
 
 
@@ -24,6 +27,7 @@ class DrawerCommandExecuteHandler(adsk.core.CommandEventHandler):
                 values[inp.id] = (
                     inp.value if hasattr(inp, 'value') else inp.isChecked
                 )
+
 
             design = adsk.fusion.Design.cast(self.app.activeProduct)
             root = design.rootComponent
@@ -58,6 +62,7 @@ class DrawerCommandExecuteHandler(adsk.core.CommandEventHandler):
                 prof,
                 adsk.fusion.FeatureOperations.NewBodyFeatureOperation,
             )
+
             distance = adsk.core.ValueInput.createByReal(bottom_thickness)
             ext_input.setDistanceExtent(False, distance)
             bottom_body = extrudes.add(ext_input).bodies.item(0)
@@ -78,6 +83,7 @@ class DrawerCommandExecuteHandler(adsk.core.CommandEventHandler):
                     prof,
                     adsk.fusion.FeatureOperations.NewBodyFeatureOperation,
                 )
+
                 distance = adsk.core.ValueInput.createByReal(thickness)
                 ext_in.setDistanceExtent(False, distance)
                 body = extrudes.add(ext_in).bodies.item(0)
@@ -139,6 +145,7 @@ class DrawerCommandExecuteHandler(adsk.core.CommandEventHandler):
                 drawer_comp.convertToComponents(bodies)
 
         except Exception:
+
             self.app.log('Failed:\n{}'.format(traceback.format_exc()))
 
 
@@ -252,6 +259,7 @@ def create_command_inputs(cmd):
 class DrawerPaletteCommandCreatedEventHandler(
     adsk.core.CommandCreatedEventHandler,
 ):
+
     def __init__(self, app):
         super().__init__()
         self.app = app
@@ -276,6 +284,7 @@ class DrawerPaletteCommandCreatedEventHandler(
                     traceback.format_exc()
                 )
             )
+
 
 
 class DrawerAddin:
@@ -317,6 +326,7 @@ class DrawerAddin:
             create_panel = self.ui.allToolbarPanels.itemById(
                 'SolidCreatePanel'
             )
+
             ctrl = create_panel.controls.itemById('drawerAddin')
             if ctrl:
                 ctrl.deleteMe()
@@ -331,6 +341,7 @@ class DrawerAddin:
             )
 
 
+
 def run(context):
     app = adsk.core.Application.get()
     addin = DrawerAddin(app)
@@ -341,3 +352,4 @@ def stop(context):
     app = adsk.core.Application.get()
     addin = DrawerAddin(app)
     addin.stop()
+
